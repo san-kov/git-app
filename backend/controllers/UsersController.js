@@ -1,5 +1,9 @@
-const rootPath = (req, res) => {
-  res.send({ hello: 123 })
+import signToken from '../utils/signToken'
+
+export const authGithub = ({ user }, res) => {
+  res.send({ token: signToken(user) })
 }
 
-export default { rootPath }
+export const me = ({ user }, res) => {
+  res.send(user)
+}

@@ -7,7 +7,13 @@
     "dev": "nodemon --exec babel-node index.js"
   },
   "dependencies": {
-    "express": "^4.16.4"
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.0",
+    "mongoose": "^5.4.15",
+    "passport": "^0.4.0",
+    "passport-github-token": "^2.1.0",
+    "passport-jwt": "^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.3.3",
