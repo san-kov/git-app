@@ -7,6 +7,7 @@ const router = new Router()
 
 router.post(
   '/auth/github',
+  UsersController.extractAccessToken,
   passport.authenticate('github-token', { session: false }),
   UsersController.authGithub
 )
