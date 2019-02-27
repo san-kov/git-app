@@ -64,7 +64,11 @@ export default class Welcome extends React.Component {
       window.location.href.match(/\?code=(.*)/)[1]
 
     if (code) {
-      await axios.post(`http://localhost:8080/api/users/auth/github`, { code })
+      const res = await axios.post(
+        `http://localhost:8080/api/users/auth/github`,
+        { code }
+      )
+      console.log(res)
     }
   }
   render() {

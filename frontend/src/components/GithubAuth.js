@@ -2,7 +2,7 @@ import React from 'react'
 import BigButton from './styled/BigButton'
 
 const params = {
-  client_id: '',
+  client_id: 'f16c8ca1bd06792cd0ba',
   scope: 'read:user'
 }
 
