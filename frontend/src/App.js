@@ -1,21 +1,48 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import { observable } from 'mobx'
+import { observer, inject } from 'mobx-react'
 
 import Welcome from './pages/Welcome'
+import Home from './pages/Home'
+import Header from './components/Header'
 
-@observable
+@inject('authStore')
+@observer
 class App extends Component {
+  componentDidMount() {
+    const { pullUser, token } = this.props.authStore
+
+    if (token) {
+      pullUser()
+    }
+  }
   render() {
-    return (
-      <div>
-        <BrowserRouter>
-          <Switch>
-            <Route path="/login" component={Welcome} />
-          </Switch>
-        </BrowserRouter>
-      </div>
-    )
+    const { token, appLoaded, authorizing } = this.props.authStore
+
+    if (authorizing) {
+      return null
+    }
+
+    if (!token) {
+      return <Welcome />
+    }
+
+    if (appLoaded) {
+      return (
+        <div>
+          <BrowserRouter>
+            <div>
+              <Header />
+              <Switch>
+                <Route path="/" component={Home} />
+              </Switch>
+            </div>
+          </BrowserRouter>
+        </div>
+      )
+    }
+
+    return null
   }
 }
 

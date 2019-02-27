@@ -12,4 +12,4 @@ app.use(cors('*'))
 
 app.use('/api/users', users)
 
-app.listen(8080, () => console.log('listening'))
+app.listen(8000, () => console.log('listening'))

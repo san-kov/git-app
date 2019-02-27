@@ -36,7 +36,7 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        const { id } = profile
+        const { id, username } = profile
         const user = await User.findOne({
           github_id: id
         })
@@ -45,7 +45,12 @@ passport.use(
           return done(null, user)
         }
 
-        const newUser = await User.create({ github_id: id })
+        console.log(profile)
+        const newUser = await User.create({
+          github_id: id,
+          name: username,
+          avatar: profile._json.avatar_url
+        })
 
         done(null, newUser)
       } catch (error) {

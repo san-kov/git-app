@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import axios from 'axios'
 
 import GithubAuth from '../components/GithubAuth'
 
+import { observer, inject } from 'mobx-react'
 const PageWrapper = styled.div`
   position: relative;
 `
@@ -56,19 +56,17 @@ const WelcomeWrapper = styled.div`
     align-self: flex-end;
   }
 `
-
-export default class Welcome extends React.Component {
+@inject('authStore')
+@observer
+class Welcome extends React.Component {
   async componentDidMount() {
+    const { login, token } = this.props.authStore
     const code =
       window.location.href.match(/\?code=(.*)/) &&
       window.location.href.match(/\?code=(.*)/)[1]
 
-    if (code) {
-      const res = await axios.post(
-        `http://localhost:8080/api/users/auth/github`,
-        { code }
-      )
-      console.log(res)
+    if (code && !token) {
+      login(code)
     }
   }
   render() {
@@ -86,3 +84,5 @@ export default class Welcome extends React.Component {
     )
   }
 }
+
+export default Welcome

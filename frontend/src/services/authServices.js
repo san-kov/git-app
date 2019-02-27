@@ -1,5 +1,9 @@
-import axios from 'axios'
+import client from './client'
 
 export const getUserData = token => {
-  return axios.post('http://localhost:8080/me', { token })
+  return client.get('/users/me')
+}
+
+export const login = code => {
+  return client.post(`users/auth/github`, { code })
 }
