@@ -20,11 +20,23 @@ export const extractAccessToken = async (req, res, next) => {
         code: req.body.code
       }
     )
-    const regex = /access_token=(.+)(&scope)/gm
-    const str = data.data
-    let token = regex.exec(str) && regex.exec(str)[1]
+    const regex = /access_token=(.+)(&scope.+)/gm
+    const str = `access_token=b459362c6d87fc858a748fa9656ee512f8738540&scope=user&token_type=bearer`
+    let m
+    let token
 
-    console.log(token)
+    while ((m = regex.exec(str)) !== null) {
+      // This is necessary to avoid infinite loops with zero-width matches
+      if (m.index === regex.lastIndex) {
+        regex.lastIndex++
+      }
+
+      // The result can be accessed through the `m`-variable.
+      m.forEach((match, groupIndex) => {
+        console.log(`Found match, group ${groupIndex}: ${match}`)
+        if (groupIndex === 1) token = match
+      })
+    }
 
     req.body.access_token = token
     next()
