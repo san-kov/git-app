@@ -21,7 +21,7 @@ export const extractAccessToken = async (req, res, next) => {
       }
     )
     const regex = /access_token=(.+)(&scope.+)/gm
-    const str = `access_token=b459362c6d87fc858a748fa9656ee512f8738540&scope=user&token_type=bearer`
+    const str = ``
     let m
     let token
 
